@@ -1,9 +1,14 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import { waitFor } from '@testing-library/dom';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test('renders the right initial content', async () => {
+  const { queryByText } = render(<App />);
+  waitFor(() => {
+    const eurTitle = queryByText(/EUR/i);
+    expect(eurTitle).toBeInTheDocument();
+    const gbpTitle = queryByText(/GBP/i);
+    expect(gbpTitle).toBeInTheDocument();
+  });
 });
