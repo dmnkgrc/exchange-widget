@@ -1,0 +1,18 @@
+name: Lint and test
+on:
+  - push
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Lint
+        run: yarn lint
+
+      - name: test
+        run: yarn test
