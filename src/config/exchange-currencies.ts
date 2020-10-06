@@ -22,3 +22,5 @@ export const exchangeCurrenciesConfig = {
 };
 
 export type Currency = keyof typeof exchangeCurrenciesConfig;
+
+export const currencies = Object.keys(exchangeCurrenciesConfig) as Currency[];
