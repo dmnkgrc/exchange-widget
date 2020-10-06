@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import { Box, Button, Flex, Heading, Spinner } from '@chakra-ui/core';
+import { Box, Flex, Heading, IconButton, Text } from '@chakra-ui/core';
+
+import { Loading } from './components/Loading';
+import { TrendingUp, X } from 'react-feather';
+import styled from '@emotion/styled';
 
 const currenciesConfig = {
   EUR: {
@@ -42,37 +46,77 @@ const fetchExchangeRates = async (_key: string, baseCurrency: Currency) => {
   return await res.json();
 };
 
+const StyledCenterContainer = styled(Flex)(
+  () => `
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+`
+);
+
 function App() {
   const [baseCurrency, setBaseCurrency] = useState<Currency>('EUR');
   const [targetCurrency, setTargetCurrency] = useState<Currency>('GBP');
 
   const { data, isError, isLoading } = useQuery<ExchangeResult>(
     ['exchange', baseCurrency],
-    fetchExchangeRates
+    fetchExchangeRates,
+    {
+      refetchInterval: 10 * 1000,
+    }
   );
 
   if (isLoading) {
-    return <Spinner />;
+    return <Loading />;
   }
-
   if (isError) {
     return <h1>Something went wront, please try again later</h1>;
   }
   return (
-    <Box>
+    <Flex
+      width="100%"
+      height="100%"
+      maxWidth="4xl"
+      mx="auto"
+      flexDirection="column"
+    >
       <header>
-        <Flex as="nav">
-          <Button variant="ghost">Cancel</Button>
-          <Button variant="ghost">Exchange</Button>
+        <Flex as="nav" alignItems="center">
+          <IconButton aria-label="Cancel" variant="ghost" icon={X} />
+          <Heading fontSize={['lg', '2xl']} px={4}>
+            Exchange
+          </Heading>
         </Flex>
       </header>
-      <Box>
-        <Heading>{baseCurrency}</Heading>
-      </Box>
-      <Box>
-        <Heading>{targetCurrency}</Heading>
-      </Box>
-    </Box>
+      <Flex flex="1" flexDirection="column" position="relative">
+        <Box flex="1" p={[4, 8]}>
+          <Heading>{baseCurrency}</Heading>
+        </Box>
+        <StyledCenterContainer>
+          <Flex
+            backgroundColor="white"
+            border="1px solid"
+            borderColor="gray.200"
+            py={2}
+            px={4}
+            color="blue.400"
+            borderRadius="full"
+            alignItems="center"
+          >
+            <TrendingUp size="16" />
+            <Text fontWeight="700" fontSize={['xs', 'sm']} ml={2}>
+              {currenciesConfig[baseCurrency].symbol}1 ={' '}
+              {currenciesConfig[targetCurrency].symbol}{' '}
+              {data?.rates[targetCurrency]}
+            </Text>
+          </Flex>
+        </StyledCenterContainer>
+        <Box flex="1" backgroundColor="gray.100" p={[4, 8]}>
+          <Heading>{targetCurrency}</Heading>
+        </Box>
+      </Flex>
+    </Flex>
   );
 }
 
