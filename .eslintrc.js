@@ -13,7 +13,7 @@ module.exports = {
       version: 'detect',
     },
   },
-  plugins: ['@typescript-eslint', 'jest'],
+  plugins: ['@typescript-eslint', 'cypress', 'jest'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -21,7 +21,6 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'prettier',
     'prettier/@typescript-eslint',
-    'plugin:jest/recommended',
   ],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',

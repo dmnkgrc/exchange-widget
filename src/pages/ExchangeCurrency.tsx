@@ -4,13 +4,13 @@ import { Box, Flex, Heading, IconButton, Text } from '@chakra-ui/core';
 import { TrendingUp, X } from 'react-feather';
 import styled from '@emotion/styled';
 
-import { Loading } from './components/Loading';
-import { API_URL } from './config/constants';
+import { Loading } from '../components/Loading';
+import { API_URL } from '../config/constants';
 import {
   Currency,
   exchangeCurrenciesConfig,
-} from './config/exchange-currencies';
-import type { ExchangeResult } from './types/exchange-result';
+} from '../config/exchange-currencies';
+import type { ExchangeResult } from '../types/exchange-result';
 
 const fetchExchangeRates = async (_key: string, baseCurrency: Currency) => {
   const res = await fetch(`${API_URL}?base=${baseCurrency}`);
