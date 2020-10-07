@@ -1,18 +1,17 @@
-.BrainhubCarousel,
-.BrainhubCarousel__trackContainer,
-.BrainhubCarousel__track {
+.slick-slider,
+.slick-list,
+.slick-track {
   height: 100%;
 }
 
-.BrainhubCarousel__dots {
-  position: absolute;
+.slick-dots {
   bottom: 0;
-  width: 100%;
-  align-items: center;
-  padding-bottom: 1.5rem;
 }
 
-.BrainhubCarousel__dots .BrainhubCarousel__dot:before {
-  width: 8px;
-  height: 8px;
+.slick-slide > div {
+  height: 100%;
+}
+
+.slick-slide > div > div {
+  display: inline-flex !important;
 }
