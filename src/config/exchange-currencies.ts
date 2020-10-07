@@ -1,26 +1,26 @@
 export const exchangeCurrenciesConfig = {
   EUR: {
     name: 'EUR',
-    url: '',
     symbol: '€',
   },
   USD: {
     name: 'USD',
-    url: '',
     symbol: '$',
   },
   GBP: {
     name: 'EUR',
-    url: '',
     symbol: '£',
   },
   MXN: {
     name: 'EUR',
-    url: '',
     symbol: '$',
   },
 };
 
 export type Currency = keyof typeof exchangeCurrenciesConfig;
+export interface CurrencyConfig {
+  name: string;
+  symbol: string;
+}
 
 export const currencies = Object.keys(exchangeCurrenciesConfig) as Currency[];
