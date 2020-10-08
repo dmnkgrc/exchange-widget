@@ -12,6 +12,7 @@ import {
 import Slide from 'react-slick';
 
 import { currencies, currenciesConfig } from '../../config/currencies';
+import { roundNumber } from '../../utils/numbers';
 
 interface CurrencyInputProps extends BoxProps {
   paginateCurrency: (args: {
@@ -93,7 +94,8 @@ export const CurrencyInput = forwardRef<Slide | null, CurrencyInputProps>(
                   type="number"
                   step=".01"
                   fontSize={['4xl', '6xl']}
-                  value={value}
+                  value={value !== '' ? roundNumber(value, 2) : value}
+                  data-test-id={`exchange-currency-input-${type}-${currency}`}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleAmountChange(
                       isBase ? 'SetBaseAmount' : 'SetTargetAmount',

@@ -5,7 +5,7 @@ import {
   currenciesConfig,
 } from '../../config/currencies';
 import type { ExchangeResult } from './../../types/exchange-result';
-import { getDecimalPlaces, roundNumber } from '../../utils/numbers';
+import { getDecimalPlaces } from '../../utils/numbers';
 
 type AmountInputValue = number | '';
 
@@ -34,7 +34,7 @@ type AmountsAction =
 function getTargetValue(value: AmountInputValue, exchangeRate?: number) {
   let targetValue = value;
   if (value !== '') {
-    targetValue = exchangeRate ? roundNumber(exchangeRate * value, 2) : '';
+    targetValue = exchangeRate ? exchangeRate * value : '';
   }
   return targetValue;
 }
@@ -46,7 +46,7 @@ function getBaseValue(
   exchangeRate?: number
 ) {
   if (value !== '') {
-    return exchangeRate ? roundNumber(value / exchangeRate, 2) : currentValue;
+    return exchangeRate ? value / exchangeRate : currentValue;
   }
   return currentValue;
 }

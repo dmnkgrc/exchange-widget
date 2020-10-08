@@ -7,7 +7,6 @@ import {
   currenciesConfig,
   Currency,
 } from '../../config/currencies';
-import { roundNumber } from '../../utils/numbers';
 
 describe('ExchangeCurrencyPage reducer', () => {
   describe('Set Currency', () => {
@@ -85,22 +84,16 @@ describe('ExchangeCurrencyPage reducer', () => {
         value,
       });
       expect(newState.target.value).toEqual(
-        roundNumber(
-          exchangeCurrencyResponses[newCurrency].rates[newState.target.name] *
-            (newState.base.value as number),
-          2
-        )
+        exchangeCurrencyResponses[newCurrency].rates[newState.target.name] *
+          (newState.base.value as number)
       );
       newState = exchangeReducer(state, {
         type: 'SetTargetIndex',
         value,
       });
       expect(newState.target.value).toEqual(
-        roundNumber(
-          (newState.base.value as number) *
-            exchangeCurrencyResponses.EUR.rates[newCurrency],
-          2
-        )
+        (newState.base.value as number) *
+          exchangeCurrencyResponses.EUR.rates[newCurrency]
       );
     });
   });
@@ -154,10 +147,7 @@ describe('ExchangeCurrencyPage reducer', () => {
       });
       expect(newState.base.value).toEqual(value);
       expect(newState.target.value).toEqual(
-        roundNumber(
-          value * exchangeCurrencyResponses.EUR.rates[state.target.name],
-          2
-        )
+        value * exchangeCurrencyResponses.EUR.rates[state.target.name]
       );
     });
 
@@ -177,10 +167,7 @@ describe('ExchangeCurrencyPage reducer', () => {
       });
       expect(newState.target.value).toEqual(value);
       expect(newState.base.value).toEqual(
-        roundNumber(
-          value / exchangeCurrencyResponses.EUR.rates[state.target.name],
-          2
-        )
+        value / exchangeCurrencyResponses.EUR.rates[state.target.name]
       );
     });
 
@@ -226,7 +213,7 @@ describe('ExchangeCurrencyPage reducer', () => {
         },
       });
       expect(newState.target.value).toEqual(
-        roundNumber((newState.base.value as number) * expectedRate, 2)
+        (newState.base.value as number) * expectedRate
       );
     });
   });

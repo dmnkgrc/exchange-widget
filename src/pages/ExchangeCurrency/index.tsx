@@ -108,8 +108,9 @@ const ExchangeCurrencyPage = () => {
     fetchExchangeRates,
     {
       refetchInterval: 10 * 1000,
-      onSuccess: (data) =>
-        dispatch({ type: 'SetExchangeRates', value: data.rates }),
+      onSuccess: (data) => {
+        dispatch({ type: 'SetExchangeRates', value: data.rates });
+      },
     }
   );
 
@@ -127,7 +128,7 @@ const ExchangeCurrencyPage = () => {
     function updateAmountsOnSlideChange() {
       refetch();
     },
-    [base.index, target.index, base.value, refetch]
+    [base.index, target.index, refetch]
   );
 
   const [
@@ -169,7 +170,6 @@ const ExchangeCurrencyPage = () => {
         },
         {
           onSuccess: (data) => {
-            console.log(data);
             const previousBalance = cache.getQueryData([
               'user-balance',
             ]) as BalanceResponse;
@@ -202,8 +202,14 @@ const ExchangeCurrencyPage = () => {
   if (isSuccess) {
     return (
       <ExchangeSuccess
-        baseAmount={`${base.config.symbol}${base.value}`}
-        targetAmount={`${target.config.symbol}${target.value}`}
+        baseAmount={`${base.config.symbol}${roundNumber(
+          Number(base.value),
+          2
+        ).toLocaleString()}`}
+        targetAmount={`${target.config.symbol}${roundNumber(
+          Number(target.value),
+          2
+        ).toLocaleString()}`}
         onDone={() => history.push('/')}
       />
     );
@@ -229,6 +235,7 @@ const ExchangeCurrencyPage = () => {
               variant="ghost"
               isDisabled={disabled}
               onClick={save}
+              data-test-id="exchange-save-btn"
             >
               Save
             </Button>

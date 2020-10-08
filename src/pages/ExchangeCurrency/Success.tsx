@@ -56,6 +56,7 @@ export const ExchangeSuccess = ({
           borderRadius="full"
           width="100%"
           onClick={onDone}
+          data-test-id="exchange-currency-done-btn"
         >
           Done
         </Button>
