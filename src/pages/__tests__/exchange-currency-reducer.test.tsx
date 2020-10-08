@@ -1,12 +1,6 @@
-import * as React from 'react';
-import { render } from '@testing-library/react';
-import { waitFor } from '@testing-library/dom';
-import { Switch, theme, ThemeProvider } from '@chakra-ui/core';
-
 import '@testing-library/jest-dom/extend-expect';
 
 import * as exchangeCurrencyResponses from '../../mocks/exchange-currency-responses.json';
-import ExchangeCurrencyPage from '../ExchangeCurrency';
 import { exchangeReducer, initialState } from '../ExchangeCurrency/state';
 import {
   currencies,
@@ -14,31 +8,6 @@ import {
   Currency,
 } from '../../config/currencies';
 import { roundNumber } from '../../utils/numbers';
-import { BrowserRouter } from 'react-router-dom';
-
-describe('ExchangeCurrencyPage', () => {
-  test('renders the right initial content', async () => {
-    const { queryByText } = render(
-      <BrowserRouter>
-        <Switch>
-          <ThemeProvider theme={theme}>
-            <ExchangeCurrencyPage />
-          </ThemeProvider>
-        </Switch>
-      </BrowserRouter>
-    );
-
-    const { rates } = exchangeCurrencyResponses.EUR;
-    waitFor(() => {
-      const eurTitle = queryByText(/EUR/i);
-      expect(eurTitle).toBeInTheDocument();
-      const gbpTitle = queryByText(/GBP/i);
-      expect(gbpTitle).toBeInTheDocument();
-      const targetValue = queryByText(new RegExp(rates.GBP.toString()));
-      expect(targetValue).toBeInTheDocument();
-    });
-  });
-});
 
 describe('ExchangeCurrencyPage reducer', () => {
   describe('Set Currency', () => {
