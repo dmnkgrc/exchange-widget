@@ -1,5 +1,7 @@
 import { currenciesConfig } from './../../src/config/currencies';
 
+const formatRegex = /\B(?=(\d{3})+(?!\d))/g;
+
 context('Exchange currency', () => {
   beforeEach(() => {
     cy.visit('/exchange');
@@ -24,18 +26,19 @@ context('Exchange currency', () => {
         cy.findByText(
           `You exchanged ${eurConfig.symbol}${baseAmount} to ${
             mxnConfig.symbol
-          }${targetValue?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
+          }${targetValue?.toString().replace(formatRegex, ',')}`
         ).should('exist');
       });
   });
 
   it('should convert the desired target currency value', () => {
+    cy.visit('/exchange?base=GBP');
     cy.get('[data-test-id="exchange-save-btn"]').should('be.disabled');
     const targetAmount = 1000;
     cy.get('[data-test-id="exchange-currency-input-target-MXN"]:visible')
       .first()
       .type(targetAmount.toString());
-    cy.get('[data-test-id="exchange-currency-input-base-EUR"]')
+    cy.get('[data-test-id="exchange-currency-input-base-GBP"]')
       .first()
       .invoke('val')
       .then((baseValue) => {
@@ -43,14 +46,14 @@ context('Exchange currency', () => {
           .should('not.be.disabled')
           .click();
         cy.get('[data-test-id="exchange-currency-done-btn"]').should('exist');
-        const eurConfig = currenciesConfig.EUR;
+        const gbpConfig = currenciesConfig.GBP;
         const mxnConfig = currenciesConfig.MXN;
         cy.findByText(
-          `You exchanged ${eurConfig.symbol}${baseValue
+          `You exchanged ${gbpConfig.symbol}${baseValue
             ?.toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')} to ${
+            .replace(formatRegex, ',')} to ${
             mxnConfig.symbol
-          }${targetAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
+          }${targetAmount.toString().replace(formatRegex, ',')}`
         ).should('exist');
       });
   });
