@@ -19,7 +19,10 @@
     "noEmit": true,
     "jsx": "react",
     "types": [
-      "cypress", "@testing-library/cypress"
+      "jest",
+      "@testing-library/jest-dom",
+      "react",
+      "node"
     ]
   },
   "exclude": ["node_modules"],

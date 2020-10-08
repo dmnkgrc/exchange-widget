@@ -1,4 +1,4 @@
-import { Currency } from '../config/exchange-currencies';
+import { Currency } from '../config/currencies';
 
 export interface ExchangeResult {
   rates: {

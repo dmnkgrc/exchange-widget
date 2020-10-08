@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Spinner, Text, Flex } from '@chakra-ui/core';
 
-export const Loading = () => (
+export const Loading = ({ height = '100vh' }) => (
   <Flex
     flexDirection="column"
     width="100%"
-    height="100vh"
+    height={height}
     justifyContent="center"
     alignItems="center"
   >

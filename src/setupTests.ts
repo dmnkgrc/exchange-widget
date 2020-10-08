@@ -6,6 +6,17 @@ import '@testing-library/jest-dom/extend-expect';
 
 import { server } from './mocks/server';
 
+// react-slick requires this polyfill to work
+window.matchMedia =
+  window.matchMedia ||
+  function () {
+    return {
+      matches: false,
+      addListener: () => null,
+      removeListener: () => null,
+    };
+  };
+
 beforeAll(() => {
   // Establish requests interception layer before all tests.
   server.listen();

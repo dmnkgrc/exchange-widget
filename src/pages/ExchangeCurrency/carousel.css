@@ -5,7 +5,11 @@
 }
 
 .slick-dots {
-  bottom: 0;
+  bottom: 5px;
+}
+
+.slick-dots li button:before {
+  font-size: 9px;
 }
 
 .slick-slide > div {
