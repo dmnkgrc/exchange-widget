@@ -84,7 +84,11 @@ export const CurrencyInput = forwardRef<Slide | null, CurrencyInputProps>(
                 {isLoading ? (
                   <Spinner size="xs" />
                 ) : (
-                  <Text color="gray.500" fontSize="sm">
+                  <Text
+                    color="gray.500"
+                    fontSize="sm"
+                    data-test-id={`exchange-currency-input-balance-${type}`}
+                  >
                     Balance: {currenciesConfig[currency].symbol}
                     {balance?.toLocaleString()}
                   </Text>

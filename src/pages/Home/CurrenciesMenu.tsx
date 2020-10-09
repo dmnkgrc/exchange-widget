@@ -39,11 +39,12 @@ export const CurrenciesMenu = ({
         fontSize="6xl"
         height={20}
         fontWeight="300"
+        data-test-id="currencies-menu-button"
       >
         {currenciesConfig[currentCurrency].symbol}
         {balances[currentCurrency].toLocaleString()}
       </MenuButton>
-      <MenuList>
+      <MenuList data-test-id="currencies-menu-list">
         {currencies.map((currency) => (
           <MenuItem
             key={currency}
@@ -52,6 +53,7 @@ export const CurrenciesMenu = ({
               currency === currentCurrency ? 'gray.200' : 'white'
             }
             onClick={() => onItemClick(currency)}
+            data-test-id={`currencies-menu-element-${currency}`}
             {...{ justifyContent: 'space-between' }}
           >
             <Text>

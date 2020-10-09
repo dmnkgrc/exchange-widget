@@ -19,6 +19,7 @@ export const ActionButton = ({
       height="auto"
       py={2}
       backgroundColor="white"
+      data-test-id="action-button"
     >
       <Flex
         alignItems="center"

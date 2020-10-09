@@ -35,6 +35,7 @@ export const Transactions = ({
                 py={2}
                 borderBottom="1px solid"
                 borderColor="gray.200"
+                data-test-id="transaction"
               >
                 <Flex
                   borderRadius="full"
