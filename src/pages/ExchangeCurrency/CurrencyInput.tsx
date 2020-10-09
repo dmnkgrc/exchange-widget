@@ -75,7 +75,12 @@ export const CurrencyInput = forwardRef<Slide | null, CurrencyInputProps>(
               justifyContent="space-between"
             >
               <Box>
-                <Heading fontSize={['4xl', '6xl']}>{currency}</Heading>
+                <Heading
+                  fontSize={['4xl', '6xl']}
+                  data-test-id={`exchange-currency-input-heading-${type}`}
+                >
+                  {currency}
+                </Heading>
                 {isLoading ? (
                   <Spinner size="xs" />
                 ) : (

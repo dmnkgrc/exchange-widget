@@ -57,4 +57,61 @@ context('Exchange currency', () => {
         ).should('exist');
       });
   });
+
+  it('should change the base currency and recalculate the target value', () => {
+    cy.visit('/exchange');
+    cy.get('[data-test-id="exchange-save-btn"]').should('be.disabled');
+    const baseAmount = 1000;
+    cy.get('[data-test-id="exchange-currency-input-base-EUR"]:visible')
+      .first()
+      .type(baseAmount.toString());
+    cy.get('[data-test-id="exchange-currency-input-target-MXN"]')
+      .first()
+      .invoke('val')
+      .then((targetValue) => {
+        cy.get('.slick-dots > li').first().next().next().find('button').click();
+        cy.get('[data-test-id="exchange-currency-input-heading-base"]').should(
+          'contain',
+          'GBP'
+        );
+        // We wait for the response
+        cy.wait(1000);
+        cy.get('[data-test-id="exchange-currency-input-target-MXN"]')
+          .first()
+          .invoke('val')
+          .then((targetValueUpdated) => {
+            expect(targetValue).not.equal(targetValueUpdated);
+          });
+      });
+  });
+
+  it('should change the target currency and recalculate the target value', () => {
+    cy.visit('/exchange');
+    cy.get('[data-test-id="exchange-save-btn"]').should('be.disabled');
+    const baseAmount = 1000;
+    cy.get('[data-test-id="exchange-currency-input-base-EUR"]:visible')
+      .first()
+      .type(baseAmount.toString());
+    cy.get('[data-test-id="exchange-currency-input-target-MXN"]')
+      .first()
+      .invoke('val')
+      .then((targetValue) => {
+        cy.get('.slick-dots')
+          .last()
+          .find('li')
+          .next()
+          .find('button')
+          .first()
+          .click();
+        cy.get(
+          '[data-test-id="exchange-currency-input-heading-target"]'
+        ).should('contain', 'USD');
+        cy.get('[data-test-id="exchange-currency-input-target-MXN"]')
+          .first()
+          .invoke('val')
+          .then((targetValueUpdated) => {
+            expect(targetValue).not.equal(targetValueUpdated);
+          });
+      });
+  });
 });
