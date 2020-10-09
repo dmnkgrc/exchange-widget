@@ -1,5 +1,31 @@
 # Exchange Widget
 
+This project uses an ejected version for CRA, as well it uses [Chakra UI](https://chakra-ui.com/) as a component library. It is a good idea to use Chakra for this application, because it allows to build accessible apps fast. A small summary of the folder structure:
+
+- config: contains CRA specific config after being ejected
+
+- cypress/integration: contains the E2E tests
+
+- public: contains files that should be public
+
+- scripts: contains the CRA scripts to work after being ejected
+
+- src/api: contains functions that mock an API
+
+- src/components: contains shared components
+
+- src/config: contains configuration such as constants and the currencies
+
+- src/mocks: contains mocks to use in unit tests
+
+- src/pages: contains the pages, for this case only Home and ExchangeCurrency
+
+- src/types: contains shared types
+
+- src/utils: contains utils such as number formatting
+
+With more time I would probably spend more time improving the structure of the pages, so that it is clearer what is shared.
+
 ## Getting started
 
 Install dependencies using:
